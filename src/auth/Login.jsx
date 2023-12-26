@@ -77,7 +77,7 @@ const Login = () => {
       </div>
 
       <p className="text-center mt-10">Ingresa los datos correspondientes</p>
-      <form className="px-10 mt-5 grid gap-5" onSubmit={onLogin}>
+      <form className="md:px-10 mt-5 grid gap-5" onSubmit={onLogin}>
         <input
           type="email"
           className="border border-black focus:outline-red-500 w-full p-1 rounded-full px-5"
@@ -126,7 +126,7 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="mt-3 px-10">
+      <div className="mt-3 md:px-10">
         <button
           onClick={onLoginGoogle}
           type="submit"

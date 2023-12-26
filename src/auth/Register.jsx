@@ -97,7 +97,7 @@ const Register = () => {
         <h1 className="font-bold text-4xl">MAPRegister</h1>
       </div>
 
-      <form className="px-10 mt-5 grid gap-5" onSubmit={registrarUsuario}>
+      <form className="md:px-10 mt-5 grid gap-5" onSubmit={registrarUsuario}>
         <div className="flex justify-center mt-10">
           <label htmlFor="image" className="cursor-pointer">
             <div className="w-20 h-20 rounded-full overflow-hidden">
@@ -115,7 +115,7 @@ const Register = () => {
 
         <p className="text-center">Ingresa los datos correspondientes</p>
 
-        <div className="grid md:grid-cols-2 gap-2">
+        <div className="grid md:grid-cols-2 md:gap-2 gap-5">
           <input
             type="text"
             className="border border-black focus:outline-red-500 w-full p-1 rounded-full px-5"

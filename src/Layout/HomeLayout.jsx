@@ -27,10 +27,10 @@ const HomeLayout = () => {
       </div>
       <div
         id="menu"
-        className="fixed bg-white w-[280px] p-5 left-5 top-5 z-40 rounded-xl duration-500 -translate-x-[130%]"
+        className="fixed bg-white md:w-[280px] w-[230px]  p-5 left-5 top-5 z-40 rounded-xl duration-500 -translate-x-[130%]"
       >
         <div className="relative">
-          <h1 className="font-bold text-3xl">Menu</h1>
+          <h1 className="font-bold md:text-3xl text-xl">Menu</h1>
           <i
             onClick={openMenu}
             class="fas fa-arrow-circle-left absolute -right-9 top-0 text-4xl cursor-pointer hover:text-red-500"
@@ -44,7 +44,7 @@ const HomeLayout = () => {
             <li>
               <Link
                 to="/app"
-                className="font-bold w-full flex items-center rounded-xl text-xl gap-10 p-2 hover:bg-gray-100"
+                className="font-bold w-full flex items-center rounded-xl md:text-xl md:gap-10 gap-5 p-2 hover:bg-gray-100"
               >
                 <i class="fas fa-home"></i> Mi ubicación
               </Link>
@@ -53,7 +53,7 @@ const HomeLayout = () => {
             <li className="mt-5">
               <Link
                 to="?locate=medellin"
-                className="font-bold w-full flex items-center rounded-xl text-xl gap-10 p-2 hover:bg-gray-100"
+                className="font-bold w-full flex items-center rounded-xl md:text-xl md:gap-10 gap-5 p-2 hover:bg-gray-100"
               >
                 <i class="fas fa-map-marker-alt text-red-500"></i> Medellín
               </Link>

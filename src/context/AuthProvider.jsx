@@ -49,9 +49,9 @@ const AuthProvider = ({ children }) => {
       .signOut()
       .then(function () {
         // Cierre de sesión exitoso
+        toast.success("Cierre de sesión exitoso");
         navigate("/");
         setAuth({});
-        toast.success("Cierre de sesión exitoso");
       })
       .catch(function (error) {
         // Manejar errores al cerrar sesión

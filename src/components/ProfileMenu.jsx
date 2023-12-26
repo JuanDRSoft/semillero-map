@@ -9,7 +9,7 @@ export default function ProfileMenu() {
     <div className="fixed top-5 right-5 text-right z-30">
       <Menu as="div" className="relative inline-block text-left">
         <div>
-          <Menu.Button className="w-full justify-center flex items-center gap-2 font-semibold rounded-xl bg-white px-4 py-1 text-sm  duration-300 hover:bg-gray-100">
+          <Menu.Button className="w-full justify-center flex items-center gap-2 font-semibold rounded-xl bg-white md:px-4 px-2 py-1 text-sm  duration-300 hover:bg-gray-100">
             <div className="w-8 h-8 rounded-full overflow-hidden">
               <img src={usuarioData.image} className="w-full h-full" />
             </div>
