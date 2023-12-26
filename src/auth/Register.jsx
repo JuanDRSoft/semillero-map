@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import PROFILE from "/profile-placeholder.jpg";
 
 const Register = () => {
+  const [loading, setLoading] = useState(false);
   const [showPass, setShowPass] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +20,13 @@ const Register = () => {
 
   function registrarUsuario(e) {
     e.preventDefault();
+    setLoading(true);
+
+    if ([image].includes("")) {
+      toast.warning("Agrega una foto de perfil");
+      setLoading(false);
+      return;
+    }
 
     auth
       .createUserWithEmailAndPassword(email, password)
@@ -48,6 +56,7 @@ const Register = () => {
                 });
                 toast.success("Usuario registrado correctamente");
                 navigate("/app");
+                setLoading(false);
               });
           }
         );
@@ -59,7 +68,12 @@ const Register = () => {
         if (errorMessage.includes("email address is already")) {
           toast.error("El email ya se encuentra registrado");
         }
+
+        if (errorMessage.includes("Password should be at least 6 characters")) {
+          toast.error("La contraseña debe tener al menos 6 caracteres");
+        }
         console.error("Error en el registro:", errorCode, errorMessage);
+        setLoading(false);
       });
   }
 
@@ -94,6 +108,7 @@ const Register = () => {
             id="image"
             type="file"
             className="hidden"
+            accept=".jpg, .jpeg, .png"
             onChange={(e) => handleImageChange(e)}
           />
         </div>
@@ -160,8 +175,11 @@ const Register = () => {
           </div>
         </div>
 
-        <button className="bg-red-500 hover:bg-red-700 duration-200 text-white p-1 rounded-full mt-5 font-bold">
-          Registrar
+        <button
+          disabled={loading}
+          className="bg-red-500 hover:bg-red-700 duration-200 text-white p-1 rounded-full mt-5 font-bold"
+        >
+          {loading ? <i class="fas fa-spinner animate-spin"></i> : "Registrar"}
         </button>
 
         <Link to="/" className="text-center font-semibold hover:text-red-500">
