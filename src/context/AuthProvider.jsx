@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, createContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { toast } from "react-toastify";
 
 const AuthContext = createContext();
@@ -9,6 +9,7 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [cargando, setCargando] = useState(true);
   const [authUser, setAuthUser] = useState({});
+  const [usuarioData, setUsuarioData] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +23,27 @@ const AuthProvider = ({ children }) => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    const getUser = () => {
+      console.log(authUser.uid);
+      const data = db.collection("usuarios").doc(authUser.uid);
+      data
+        .get()
+        .then((doc) => {
+          if (doc.exists) {
+            setUsuarioData(doc.data());
+          } else {
+            console.log("El documento no existe.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error al obtener el documento:", error);
+        });
+    };
+
+    getUser();
+  }, [authUser]);
 
   const cerrarSesionAuth = () => {
     auth
@@ -39,7 +61,9 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ cargando, cerrarSesionAuth, authUser }}>
+    <AuthContext.Provider
+      value={{ cargando, cerrarSesionAuth, authUser, usuarioData }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import ProfileMenu from "../components/ProfileMenu";
 
 const HomeLayout = () => {
-  const { authUser, cerrarSesionAuth } = useAuth();
+  const { authUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,13 +56,15 @@ const HomeLayout = () => {
         </div>
       </div>
 
-      <div
+      <ProfileMenu />
+
+      {/* <div
         onClick={cerrarSesionAuth}
         className="fixed font-bold text-lg cursor-pointer hover:bg-gray-100 bg-white p-2 px-5 flex justify-center items-center right-5 top-5 z-40 rounded-xl"
       >
         <i class="fas fa-sign-out-alt mr-2"></i>
         Cerrar Sesión
-      </div>
+      </div> */}
       <Outlet />
     </div>
   );
