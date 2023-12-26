@@ -42,13 +42,19 @@ const HomeLayout = () => {
         <div>
           <ul>
             <li>
-              <Link className="font-bold w-full flex items-center rounded-xl text-xl gap-10 p-2 hover:bg-gray-100">
+              <Link
+                to="/app"
+                className="font-bold w-full flex items-center rounded-xl text-xl gap-10 p-2 hover:bg-gray-100"
+              >
                 <i class="fas fa-home"></i> Mi ubicación
               </Link>
             </li>
 
             <li className="mt-5">
-              <Link className="font-bold w-full flex items-center rounded-xl text-xl gap-10 p-2 hover:bg-gray-100">
+              <Link
+                to="?locate=medellin"
+                className="font-bold w-full flex items-center rounded-xl text-xl gap-10 p-2 hover:bg-gray-100"
+              >
                 <i class="fas fa-map-marker-alt text-red-500"></i> Medellín
               </Link>
             </li>

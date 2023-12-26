@@ -26,7 +26,6 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const getUser = () => {
-      console.log(authUser.uid);
       const data = db.collection("usuarios").doc(authUser.uid);
       data
         .get()
