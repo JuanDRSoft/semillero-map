@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Logo from "/logo.png";
-import { auth, db } from "../../firebase";
+import { auth, db, storage } from "../../firebase";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
+import PROFILE from "/profile-placeholder.jpg";
 
 const Register = () => {
   const [showPass, setShowPass] = useState(false);
@@ -12,6 +13,7 @@ const Register = () => {
   const [lastname, setLastame] = useState("");
   const [phone, setPhone] = useState("");
   const [img, setImg] = useState("");
+  const [image, setImage] = useState("");
 
   const navigate = useNavigate();
 
@@ -23,16 +25,32 @@ const Register = () => {
       .then(function (userCredential) {
         // Registro exitoso
         var user = userCredential.user._delegate;
-        console.log("Usuario registrado exitosamente:", user);
-        db.collection("usuarios").doc(user.uid).set({
-          email: user.email,
-          name: name,
-          lastname: lastname,
-          phone: phone,
-          image: img,
-        });
-        toast.success("Usuario registrado correctamente");
-        navigate("/app");
+
+        const uploadTask = storage.ref(`usuarios/${image.name}`).put(image);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            storage
+              .ref("usuarios")
+              .child(image.name)
+              .getDownloadURL()
+              .then((url) => {
+                db.collection("usuarios").doc(user.uid).set({
+                  email: user.email,
+                  name: name,
+                  lastname: lastname,
+                  phone: phone,
+                  image: url,
+                });
+                toast.success("Usuario registrado correctamente");
+                navigate("/app");
+              });
+          }
+        );
       })
       .catch(function (error) {
         // Error en el registro
@@ -45,6 +63,19 @@ const Register = () => {
       });
   }
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImg(reader.result);
+        setImage(file);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="bg-white container shadow-xl rounded-xl md:w-[50%] lg:w-[30%] w-[90%] p-10 pt-14">
       <div className="flex items-center gap-3 justify-center">
@@ -52,9 +83,23 @@ const Register = () => {
         <h1 className="font-bold text-4xl">MAPRegister</h1>
       </div>
 
-      <p className="text-center mt-10">Ingresa los datos correspondientes</p>
-
       <form className="px-10 mt-5 grid gap-5" onSubmit={registrarUsuario}>
+        <div className="flex justify-center mt-10">
+          <label htmlFor="image" className="cursor-pointer">
+            <div className="w-20 h-20 rounded-full overflow-hidden">
+              <img src={img ? img : PROFILE} className="w-full h-full" />
+            </div>
+          </label>
+          <input
+            id="image"
+            type="file"
+            className="hidden"
+            onChange={(e) => handleImageChange(e)}
+          />
+        </div>
+
+        <p className="text-center">Ingresa los datos correspondientes</p>
+
         <div className="grid md:grid-cols-2 gap-2">
           <input
             type="text"
