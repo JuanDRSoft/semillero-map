@@ -4,15 +4,15 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBRX0-r3s_xryfx-ro6aZvwLYQlyvSdGFs",
-  authDomain: "semillero-react.firebaseapp.com",
-  projectId: "semillero-react",
-  storageBucket: "semillero-react.appspot.com",
-  messagingSenderId: "144495666351",
-  appId: "1:144495666351:web:60fc7f376f42d7d7c1a05a",
-  measurementId: "G-KD5CWC9PPV",
+  apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env
+    .VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
-
 firebase.initializeApp(firebaseConfig);
 
 const storage = firebase.storage();
