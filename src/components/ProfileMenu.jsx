@@ -1,9 +1,19 @@
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import useAuth from "../hooks/useAuth";
+import ProfileEdit from "./ProfileEdit";
 
 export default function ProfileMenu() {
   const { usuarioData, cerrarSesionAuth } = useAuth();
+  let [isOpen, setIsOpen] = useState(false);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   return (
     <div className="fixed top-5 right-5 text-right z-30">
@@ -33,6 +43,7 @@ export default function ProfileMenu() {
               <Menu.Item>
                 {({ active }) => (
                   <button
+                    onClick={openModal}
                     className={`${
                       active ? "bg-red-500 text-white" : "text-gray-900"
                     } group flex w-full justify-between items-center rounded-md px-2 py-2 text-sm`}
@@ -59,6 +70,12 @@ export default function ProfileMenu() {
           </Menu.Items>
         </Transition>
       </Menu>
+
+      <ProfileEdit
+        openModal={openModal}
+        isOpen={isOpen}
+        closeModal={closeModal}
+      />
     </div>
   );
 }
