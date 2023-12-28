@@ -25,23 +25,33 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const getUser = () => {
-      const data = db.collection("usuarios").doc(authUser.uid);
-      data
-        .get()
-        .then((doc) => {
-          if (doc.exists) {
-            setUsuarioData(doc.data());
-          } else {
-            console.log("El documento no existe.");
-          }
-        })
-        .catch((error) => {
-          console.error("Error al obtener el documento:", error);
-        });
-    };
+    const data = db.collection("usuarios").doc(authUser.uid);
 
-    getUser();
+    data
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          setUsuarioData(doc.data());
+        } else {
+          console.log("El documento no existe.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener el documento:", error);
+      });
+
+    data.onSnapshot(
+      (doc) => {
+        if (doc.exists) {
+          setUsuarioData(doc.data());
+        } else {
+          console.log("El documento ya no existe.");
+        }
+      },
+      (error) => {
+        console.error("Error al escuchar cambios en el documento:", error);
+      }
+    );
   }, [authUser]);
 
   const cerrarSesionAuth = () => {

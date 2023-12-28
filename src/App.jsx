@@ -24,7 +24,7 @@ function App() {
           </Route>
         </Routes>
       </AuthProvider>
-      <ToastContainer />
+      <ToastContainer autoClose={2000} />
     </BrowserRouter>
   );
 }
