@@ -10,17 +10,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const createUser = (email, name, lastname, phone, image, userId) => {
-    console.log(userId);
-    db.collection("usuarios").doc(userId).set({
-      email: email,
-      name: name,
-      lastname: lastname,
-      phone: phone,
-      image: image,
-    });
-  };
-
   function onLogin(e) {
     e.preventDefault();
 
